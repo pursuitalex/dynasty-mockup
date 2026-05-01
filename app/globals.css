@@ -1,0 +1,245 @@
+@import "tailwindcss";
+
+/* =============================================================
+   Euclid Circular A — local font faces
+   ============================================================= */
+@font-face {
+  font-family: "Euclid Circular A";
+  src: url("/fonts/Euclid Circular A Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Euclid Circular A";
+  src: url("/fonts/Euclid Circular A Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Euclid Circular A";
+  src: url("/fonts/Euclid Circular A Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Euclid Circular A";
+  src: url("/fonts/Euclid Circular A SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Euclid Circular A";
+  src: url("/fonts/Euclid Circular A Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* =============================================================
+   Theme tokens — Tailwind v4 (@theme generates utilities)
+   ============================================================= */
+@theme {
+  /* brand palette */
+  --color-bg: #061d44;
+  --color-bg-deep: #002057;
+  --color-bg-mid: #214582;
+  --color-bg-light: #dce5f5;
+  --color-ink: #121212;
+  --color-ink-2: #25282a;
+  --color-ink-3: #5d6265;
+  --color-line: #cdcdcf;
+  --color-paper: #ffffff;
+  --color-accent: #fbdd1c;
+  --color-gold: #ffcb46;
+
+  /* fonts */
+  --font-sans: "Euclid Circular A", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, sans-serif;
+
+  /* containers */
+  --container-content: 1240px;
+  --container-wide: 1700px;
+
+  /* radii */
+  --radius-card: 24px;
+  --radius-bleed: 40px;
+  --radius-pill: 999px;
+}
+
+/* =============================================================
+   Base
+   ============================================================= */
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  background: var(--color-bg);
+  color: var(--color-paper);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+/* hide scrollbar in Lenis-controlled scroll for cleaner look (optional) */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* selection */
+::selection {
+  background: var(--color-accent);
+  color: var(--color-ink);
+}
+
+/* =============================================================
+   Keyframes
+   ============================================================= */
+@keyframes float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translate3d(20px, -30px, 0) scale(1.05);
+    opacity: 1;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes headerIn {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -16px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Seamless marquee — content is duplicated 2× in the DOM and shifted by 50% */
+@keyframes marqueeLeft {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+@keyframes marqueeRight {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    filter: blur(0);
+  }
+}
+
+/* Per-word reveal helper — visible by default for SSR / no-JS / reduced-motion */
+@layer components {
+  .word-reveal {
+    display: inline-block;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .word-reveal {
+      opacity: 0;
+      animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      animation-delay: var(--word-delay, 0ms);
+    }
+  }
+
+  /* Goal row staggered reveal */
+  @media (prefers-reduced-motion: no-preference) {
+    .goal-row {
+      opacity: 0;
+      animation: fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      animation-delay: var(--row-delay, 0ms);
+    }
+  }
+
+  /* Block-level fade-up — same rhythm as word-reveal but for whole paragraphs */
+  @media (prefers-reduced-motion: no-preference) {
+    .word-reveal-block {
+      opacity: 0;
+      animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      animation-delay: var(--word-delay, 0ms);
+    }
+  }
+
+  /* Glass card entrance — subtle scale + fade */
+  @media (prefers-reduced-motion: no-preference) {
+    .glass-card {
+      opacity: 0;
+      transform-origin: center;
+      animation: glassIn 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      animation-delay: var(--card-delay, 0ms);
+    }
+  }
+}
+
+@keyframes glassIn {
+  0% {
+    opacity: 0;
+    filter: blur(6px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+/* reduced motion respect */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
