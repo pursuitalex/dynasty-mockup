@@ -166,71 +166,50 @@ html.lenis body {
   }
 }
 
-@keyframes fadeUp {
+/* Reveal helpers — visible by default for SSR / no-JS / reduced-motion */
+@layer components {
+  /* ── LINE FADE ── used everywhere else for headings, sub-headings, list rows.
+     Just opacity + a tiny slide. No blur — keeps it snappy and clean. */
+  @media (prefers-reduced-motion: no-preference) {
+    .text-fade-in {
+      opacity: 0;
+      animation: fadeUpSimple 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      animation-delay: var(--reveal-delay, 0ms);
+    }
+  }
+
+  /* ── REVEAL-LINES ── scroll-scrubbed line-by-line blur reveal driven by
+     GSAP ScrollTrigger inside <RevealLines>. CSS just gives the initial
+     hidden state so words don't flash visible before JS attaches. GSAP
+     then takes over and animates inline styles based on scroll progress. */
+  .reveal-lines-word {
+    display: inline-block;
+    opacity: 0;
+    filter: blur(8px);
+    transform: translate3d(0, 12px, 0);
+    will-change: opacity, transform, filter;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal-lines-word {
+      opacity: 1;
+      filter: none;
+      transform: none;
+    }
+  }
+
+}
+
+@keyframes fadeUpSimple {
   0% {
     opacity: 0;
-    transform: translate3d(0, 18px, 0);
-    filter: blur(4px);
+    transform: translate3d(0, 10px, 0);
   }
   100% {
     opacity: 1;
     transform: translate3d(0, 0, 0);
-    filter: blur(0);
   }
 }
 
-/* Per-word reveal helper — visible by default for SSR / no-JS / reduced-motion */
-@layer components {
-  .word-reveal {
-    display: inline-block;
-  }
-  @media (prefers-reduced-motion: no-preference) {
-    .word-reveal {
-      opacity: 0;
-      animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-      animation-delay: var(--word-delay, 0ms);
-    }
-  }
-
-  /* Goal row staggered reveal */
-  @media (prefers-reduced-motion: no-preference) {
-    .goal-row {
-      opacity: 0;
-      animation: fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-      animation-delay: var(--row-delay, 0ms);
-    }
-  }
-
-  /* Block-level fade-up — same rhythm as word-reveal but for whole paragraphs */
-  @media (prefers-reduced-motion: no-preference) {
-    .word-reveal-block {
-      opacity: 0;
-      animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-      animation-delay: var(--word-delay, 0ms);
-    }
-  }
-
-  /* Glass card entrance — subtle scale + fade */
-  @media (prefers-reduced-motion: no-preference) {
-    .glass-card {
-      opacity: 0;
-      transform-origin: center;
-      animation: glassIn 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-      animation-delay: var(--card-delay, 0ms);
-    }
-  }
-}
-
-@keyframes glassIn {
-  0% {
-    opacity: 0;
-    filter: blur(6px);
-  }
-  100% {
-    opacity: 1;
-    filter: blur(0);
-  }
-}
 
 /* reduced motion respect */
 @media (prefers-reduced-motion: reduce) {

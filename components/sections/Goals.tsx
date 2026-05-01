@@ -28,12 +28,12 @@ const goals = [
 export function Goals() {
   return (
     <section
-      className="relative w-full overflow-hidden bg-bg-deep py-[80px]"
+      className="relative w-full overflow-hidden bg-bg-deep py-[40px] sm:py-[80px]"
       aria-label="Наши цели"
     >
       <div className="mx-auto w-full max-w-[1240px] px-6 sm:px-10 lg:px-8">
         {/* Eyebrow */}
-        <div className="mb-10 flex items-center gap-3">
+        <div className="text-fade-in mb-10 flex items-center gap-3">
           <h2 className="font-sans text-[18px] font-semibold uppercase leading-[1.3] tracking-[-0.18px] text-white">
             Наши цели
           </h2>
@@ -53,10 +53,10 @@ export function Goals() {
             return (
               <li
                 key={num}
-                className="goal-row group relative grid grid-cols-12 gap-x-6 border-t border-white/20 pt-5 pb-2 transition-colors duration-500 hover:border-white/40 sm:pb-3 lg:pb-5"
+                className="text-fade-in group relative grid grid-cols-12 gap-x-6 border-t border-white/20 pt-5 pb-2 transition-colors duration-500 hover:border-white/40 sm:pb-3 lg:pb-5"
                 style={
                   {
-                    "--row-delay": `${i * 90}ms`,
+                    "--reveal-delay": `${i * 90}ms`,
                   } as React.CSSProperties
                 }
               >

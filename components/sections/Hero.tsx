@@ -80,7 +80,7 @@ export function Hero() {
       {/* Hero content */}
       <div className="relative z-20 mx-auto flex w-full max-w-[1700px] flex-1 items-end px-6 pb-12 pt-16 sm:px-10 sm:pb-16 lg:px-16">
         <div className="w-full text-left">
-          <p className="mb-6 inline-flex items-center gap-3 text-[13px] uppercase tracking-[0.28em] text-white/70 sm:text-sm">
+          <p className="text-fade-in mb-6 inline-flex items-center gap-3 text-[13px] uppercase tracking-[0.28em] text-white/70 sm:text-sm">
             <span className="inline-block h-px w-10 bg-accent" />
             Кейс / 2025
           </p>
@@ -100,7 +100,10 @@ export function Hero() {
             </span>
           </h1>
 
-          <p className="mt-8 max-w-[640px] text-base leading-relaxed text-white/75 sm:text-lg">
+          <p
+            className="text-fade-in mt-8 max-w-[640px] text-base leading-relaxed text-white/75 sm:text-lg"
+            style={{ "--reveal-delay": "350ms" } as React.CSSProperties}
+          >
             Разработка корпоративного сайта для консалтинговой компании
             в&nbsp;ОАЭ. Услуги по&nbsp;регистрации компаний, лицензированию,
             открытию банковских счетов и&nbsp;визовой поддержке.

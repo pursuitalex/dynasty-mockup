@@ -114,7 +114,7 @@ export function TabletsCarousel() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full overflow-hidden bg-bg-deep py-[80px]"
+      className="relative w-full overflow-hidden bg-bg-deep py-[40px] sm:py-[80px]"
       aria-label="Адаптивні версії — дизайн планшета"
     >
       {/* Side gutters: 0 on mobile (full bleed) → 24/32px on tablet/desktop. */}

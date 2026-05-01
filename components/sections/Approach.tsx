@@ -1,5 +1,7 @@
 "use client";
 
+import { RevealLines } from "@/components/motion/RevealLines";
+
 /**
  * Section 5 — "Подход к разработке"
  *
@@ -22,13 +24,13 @@ const body =
 export function Approach() {
   return (
     <section
-      className="relative w-full overflow-hidden bg-bg-deep py-[80px]"
+      className="relative w-full overflow-hidden bg-bg-deep py-[40px] sm:py-[80px]"
       aria-label="Подход к разработке"
     >
       <div className="mx-auto w-full max-w-[1240px] px-6 sm:px-10 lg:px-8">
         <div className="grid grid-cols-1 items-start gap-y-10 border-b border-white/20 pb-[120px] lg:grid-cols-12 lg:gap-x-6 lg:gap-y-0">
           {/* Eyebrow — col-span-4 */}
-          <div className="flex items-center gap-3 lg:col-span-4">
+          <div className="text-fade-in flex items-center gap-3 lg:col-span-4">
             <h2 className="font-sans text-[18px] font-semibold uppercase leading-[1.3] tracking-[-0.18px] text-white">
               Подход к разработке
             </h2>
@@ -40,12 +42,12 @@ export function Approach() {
 
           {/* Body — cols 6-12 */}
           <div className="min-w-0 lg:col-span-7 lg:col-start-6">
-            <p
-              className="word-reveal-block font-sans text-[clamp(18px,1.6vw,24px)] font-normal leading-[1.45] tracking-[-0.01em] text-white"
-              style={{ "--word-delay": "120ms" } as React.CSSProperties}
-            >
-              {body}
-            </p>
+            <RevealLines
+              text={body}
+              className="font-sans text-[clamp(18px,1.6vw,24px)] font-normal leading-[1.45] tracking-[-0.01em] text-white"
+              staggerSec={0.16}
+              durationSec={0.4}
+            />
           </div>
         </div>
       </div>
